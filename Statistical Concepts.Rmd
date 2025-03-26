@@ -1,0 +1,114 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+## 1. Descriptive Statistics
+
+### Concept: Measures of central tendency (mean, median, mode) and dispersion (variance, standard deviation, IQR).
+
+#### R Example: Compute summary statistics for a dataset.
+
+```{r}
+data <- rnorm(100, mean = 50, sd = 10)
+summary(data)
+sd(data)
+var(data)
+
+```
+
+## 2. Probability Distributions
+
+### Concept: Normal, Binomial, Poisson, Exponential distributions.
+
+#### R Example: Visualizing the normal distribution.
+
+```{r}
+x <- seq(-4, 4, length=100)
+y <- dnorm(x, mean=0, sd=1)
+plot(x, y, type="l", col="blue", main="Normal Distribution")
+
+```
+
+## 3. Hypothesis Testing
+
+### Concept: t-test, ANOVA, Chi-square test, Wilcoxon signed-rank test.
+
+#### R Example: One-sample t-test.
+
+```{r}
+set.seed(123)
+sample_data <- rnorm(30, mean = 5, sd = 2)
+t.test(sample_data, mu = 5)
+
+t.test(sample_data, mu = 4)
+
+```
+
+## 4. Confidence Intervals
+
+### Concept: Estimating population parameters with confidence levels.
+
+#### R Example: Confidence interval for the mean.
+
+```{r}
+x <- rnorm(50, mean = 100, sd = 15)
+t.test(x)$conf.int
+
+```
+
+## 5. Regression Analysis
+
+### Concept: Simple and multiple linear regression.
+
+#### R Example: Simple linear regression.
+
+```{r}
+x <- rnorm(100, mean = 10, sd = 5)
+y <- 2*x + rnorm(100, sd = 3)
+model <- lm(y ~ x)
+summary(model)
+```
+
+## 6. Classification Methods
+
+### Concept: Logistic regression, decision trees.
+
+#### R Example: Logistic regression using glm.
+
+```{r}
+data(iris)
+iris$Species <- as.numeric(iris$Species == "setosa") # Binary classification
+model <- glm(Species ~ Sepal.Length + Sepal.Width, data = iris, family = binomial)
+summary(model)
+```
+
+
+## 7. Clustering Techniques
+
+### Concept: k-Means, hierarchical clustering.
+
+#### R Example: k-Means clustering.
+
+```{r}
+set.seed(123)
+iris_kmeans <- kmeans(iris[,1:4], centers=3)
+iris_kmeans$cluster
+```
+
+## 8. Feature Selection
+
+### Concept: LASSO regression, stepwise selection.
+
+#### R Example: LASSO regression using glmnet.
+
+```{r}
+library(glmnet)
+x <- as.matrix(iris[, 1:4])
+y <- as.numeric(iris$Species)
+lasso_model <- cv.glmnet(x, y, alpha = 1)
+plot(lasso_model)
+```
+
